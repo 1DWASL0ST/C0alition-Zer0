@@ -39,7 +39,7 @@ function AppContent() {
     try {
       // Запрос идет на /api/cards. Metro Bundler перехватит его
       // и перенаправит на 10.0.2.2:8080 согласно metro.config.js
-      const response = await fetch('/api/cards');
+      const response = await fetch('http://10.0.2.2:8080/api/cards');
       
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);

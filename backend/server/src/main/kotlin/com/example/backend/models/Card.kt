@@ -1,15 +1,16 @@
 package com.example.backend.models
 
 import kotlinx.serialization.Serializable
-import org.bson.codecs.pojo.annotations.BsonId
+import kotlinx.serialization.SerialName
 
 @Serializable
 data class Card (
-    @BsonId val id: String? = null,
+    @SerialName("_id")
+    val id: String? = null,
     val name: String,
     val dogtag: String,
     val dogtagRu: String,
-    val `class`: String,
+    @SerialName("class") val `class`: String,
     val faction: String,
     val era: String,
     val stats: CardStats,
