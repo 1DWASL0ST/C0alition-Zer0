@@ -29,4 +29,9 @@ dependencies {
     implementation("org.mongodb:mongodb-driver-kotlin-coroutine:5.1.0")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3")
     implementation("io.github.cdimascio:dotenv-kotlin:6.4.1")
+    implementation("org.jetbrains.exposed:exposed-core:0.53.0")
+    implementation("org.jetbrains.exposed:exposed-jdbc:0.53.0")
+    implementation("org.jetbrains.exposed:exposed-dao:0.53.0")
+    implementation("org.postgresql:postgresql:42.7.3")
+    implementation("org.mindrot:jbcrypt:0.4")
 }

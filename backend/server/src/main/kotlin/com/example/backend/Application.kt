@@ -1,6 +1,8 @@
 package com.example.backend
 
 import com.example.backend.routes.cardRoutes
+import com.example.backend.database.Postgres
+import com.example.backend.routes.authRoutes
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
@@ -20,11 +22,14 @@ fun Application.module() {
         json()
     }
 
+    Postgres.init()
+
     routing {
         get("/") {
             call.respondText("Coalition0 Server is running!")
         }
 
         cardRoutes()
+        authRoutes()
     }
 }
