@@ -1,9 +1,5 @@
 .env
 docker-compose.yaml
-*.mp3
-*.wav
-*.svg
-*.png
 *.keystore, *.jks
 
 node_modules/
