@@ -23,22 +23,20 @@ export default function MenuScreen({ navigation }: any) {
 
   useEffect(() => {
     // 1. Поворачиваем экран
-    Orientation.lockToLandscapeRight();
+    Orientation.lockToLandscapeLeft();
 
     // 2. Запускаем музыку (файл menu.wav в android/app/src/main/res/raw/)
     const music = new Sound('menu', Sound.MAIN_BUNDLE, (error) => {
       if (error) {
-        console.log('❌ Ошибка загрузки музыки:', error);
         return;
       }
-      console.log('✅ Музыка menu.wav успешно загружена!');
       music.setNumberOfLoops(-1); // Зацикливаем
       music.setVolume(0.4);       // Громкость 40% (чтобы не орало)
       music.play();
     });
 
     return () => {
-      Orientation.unlockAllOrientations();
+      Orientation.lockToLandscapeLeft();
       music.stop();
       music.release();
     };
@@ -95,7 +93,11 @@ export default function MenuScreen({ navigation }: any) {
         onPress={() => navigation.navigate('Login')}
         activeOpacity={0.7}
       >
-        <Text style={styles.loginIcon}>→</Text>
+          <Image
+            source={require('../../sprites/buttons/loginButton.png')}
+            style={styles.loginIcon}
+            resizeMode="contain"
+          />
       </TouchableOpacity>
 
     </View>
@@ -130,7 +132,7 @@ const styles = StyleSheet.create({
   // БЛОК КНОПОК МЕНЮ
   menuContainer: {
     position: 'absolute',
-    left: 0,
+    left: '5%',
     top: '25%',
     gap: 12,
   },
@@ -140,8 +142,6 @@ const styles = StyleSheet.create({
     height: 55,          // Фиксированная высота
     justifyContent: 'center',
     paddingHorizontal: 20,
-    borderTopRightRadius: 25,
-    borderBottomRightRadius: 25,
   },
   menuText: {
     fontSize: 20,
@@ -159,14 +159,10 @@ const styles = StyleSheet.create({
     height: 65,
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 8,
-    borderWidth: 2,
-    borderColor: '#000',
+    overflow: 'hidden'
   },
   loginIcon: {
-    fontSize: 32,
-    fontFamily: 'GOST_A',
-    color: '#000',
-    fontWeight: 'bold',
+    width: 50,
+    height: 50,
   },
 });
