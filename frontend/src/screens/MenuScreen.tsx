@@ -1,14 +1,9 @@
 import React, { useEffect } from 'react';
-import { View, Text, StyleSheet, Dimensions, Image, TouchableOpacity } from 'react-native';
+import { View, Text, Image, TouchableOpacity } from 'react-native';
 import Animated, { useSharedValue, useAnimatedStyle, withRepeat, withTiming, Easing } from 'react-native-reanimated';
 import Sound from 'react-native-sound';
 import Orientation from 'react-native-orientation-locker';
-
-const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
-
-// Размеры фона (чуть больше экрана, чтобы было куда двигаться)
-const BG_WIDTH = SCREEN_WIDTH * 1.3;
-const BG_HEIGHT = SCREEN_HEIGHT * 1.3;
+import { globalStyles as styles, BG_HEIGHT, BG_WIDTH, SCREEN_WIDTH, SCREEN_HEIGHT } from '../theme/globalStyles';
 
 const MENU_ITEMS = [
   { id: '1', title: 'Играть', route: 'Play' },
@@ -23,22 +18,20 @@ export default function MenuScreen({ navigation }: any) {
 
   useEffect(() => {
     // 1. Поворачиваем экран
-    Orientation.lockToLandscapeRight();
+    Orientation.lockToLandscapeLeft();
 
     // 2. Запускаем музыку (файл menu.wav в android/app/src/main/res/raw/)
     const music = new Sound('menu', Sound.MAIN_BUNDLE, (error) => {
       if (error) {
-        console.log('❌ Ошибка загрузки музыки:', error);
         return;
       }
-      console.log('✅ Музыка menu.wav успешно загружена!');
       music.setNumberOfLoops(-1); // Зацикливаем
       music.setVolume(0.4);       // Громкость 40% (чтобы не орало)
       music.play();
     });
 
     return () => {
-      Orientation.unlockAllOrientations();
+      Orientation.lockToLandscapeLeft();
       music.stop();
       music.release();
     };
@@ -95,78 +88,13 @@ export default function MenuScreen({ navigation }: any) {
         onPress={() => navigation.navigate('Login')}
         activeOpacity={0.7}
       >
-        <Text style={styles.loginIcon}>→</Text>
+          <Image
+            source={require('../../sprites/buttons/loginButton.png')}
+            style={styles.loginIcon}
+            resizeMode="contain"
+          />
       </TouchableOpacity>
 
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#000',
-  },
-  background: {
-    position: 'absolute',
-    width: BG_WIDTH,
-    height: BG_HEIGHT,
-  },
-
-  // ЗАГОЛОВОК
-  title: {
-    position: 'absolute',
-    top: '10%',
-    right: '5%',
-    fontSize: 42,
-    fontFamily: 'GOST_A_Itallic', // Наклонный шрифт
-    color: '#FFFFFF',
-    letterSpacing: 2,
-    textShadowColor: 'rgba(0, 0, 0, 0.8)',
-    textShadowOffset: { width: 2, height: 2 },
-    textShadowRadius: 4,
-  },
-
-  // БЛОК КНОПОК МЕНЮ
-  menuContainer: {
-    position: 'absolute',
-    left: 0,
-    top: '25%',
-    gap: 12,
-  },
-  menuButton: {
-    backgroundColor: 'rgba(255, 255, 255, 0.75)', // 75% непрозрачности
-    width: 230,          // Фиксированная ширина
-    height: 55,          // Фиксированная высота
-    justifyContent: 'center',
-    paddingHorizontal: 20,
-    borderTopRightRadius: 25,
-    borderBottomRightRadius: 25,
-  },
-  menuText: {
-    fontSize: 20,
-    fontFamily: 'GOST_A', // Прямой шрифт
-    color: '#000000',
-  },
-
-  // КНОПКА ЛОГИНА
-  loginButton: {
-    position: 'absolute',
-    right: '5%',
-    bottom: '8%',
-    backgroundColor: 'rgba(255, 255, 255, 0.75)',
-    width: 65,
-    height: 65,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 8,
-    borderWidth: 2,
-    borderColor: '#000',
-  },
-  loginIcon: {
-    fontSize: 32,
-    fontFamily: 'GOST_A',
-    color: '#000',
-    fontWeight: 'bold',
-  },
-});

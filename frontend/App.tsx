@@ -4,7 +4,6 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import Orientation from 'react-native-orientation-locker'; // Для возврата портретного режима
-
 import MenuScreen from './src/screens/MenuScreen';
 
 // --- ВРЕМЕННЫЙ ЭКРАН-ЗАГЛУШКА ---
@@ -19,7 +18,7 @@ const PlaceholderScreen = ({ route, navigation }: any) => {
         style={styles.backButton}
         onPress={() => {
           // При выходе с экрана возвращаем портретный режим
-          Orientation.lockToPortrait();
+          Orientation.lockToLandscapeLeft();
           navigation.goBack();
         }}
       >
