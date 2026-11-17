@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import Orientation from 'react-native-orientation-locker'; // Для возврата портретного режима
 import MenuScreen from './src/screens/MenuScreen';
+import LoginScreen from './src/screens/LoginScreen';
 
 // --- ВРЕМЕННЫЙ ЭКРАН-ЗАГЛУШКА ---
 // Он нужен, чтобы приложение не падало при переходе на несуществующие пока экраны
@@ -48,7 +49,11 @@ export default function App() {
           <Stack.Screen name="Friends" component={PlaceholderScreen} />
           <Stack.Screen name="DeckEditor" component={PlaceholderScreen} />
           <Stack.Screen name="Settings" component={PlaceholderScreen} />
-          <Stack.Screen name="Login" component={PlaceholderScreen} />
+          <Stack.Screen
+                     name="Login"
+                     component={LoginScreen}
+                     options={{animation: 'slide_from_right',}}
+          />
 
         </Stack.Navigator>
       </NavigationContainer>

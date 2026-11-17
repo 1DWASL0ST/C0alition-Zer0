@@ -19,7 +19,7 @@ export const globalStyles = StyleSheet.create({
   // ЗАГОЛОВОК
   title: {
     position: 'absolute',
-    top: '10%',
+    top: '5%',
     right: '5%',
     fontSize: 42,
     fontFamily: 'GOST_A_Itallic',
