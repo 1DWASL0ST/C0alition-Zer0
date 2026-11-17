@@ -17,41 +17,6 @@ buildscript {
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin")
     }
 }
-android {
-    signingConfigs {
-        release {
-            if (envVars['MYAPP_UPLOAD_STORE_FILE']) {
-                storeFile file(envVars['MYAPP_UPLOAD_STORE_FILE'])
-                storePassword envVars['MYAPP_UPLOAD_STORE_PASSWORD']
-                keyAlias envVars['MYAPP_UPLOAD_KEY_ALIAS']
-                keyPassword envVars['MYAPP_UPLOAD_KEY_PASSWORD']
-            }
-        }
-    }
-
-    buildTypes {
-        release {
-            signingConfig signingConfigs.release
-            // ...
-        }
-    }
-}
-
 
 apply plugin: "com.facebook.react.rootproject"
-def loadEnv() {
-    def envFile = file("../.env") // путь от app/ до android/
-    def env = [:]
-    if (envFile.exists()) {
-        envFile.eachLine { line ->
-            line = line.trim()
-            if (line && !line.startsWith("#")) {
-                def (key, value) = line.split("=", 2)
-                env[key.trim()] = value.trim().replaceAll(/^"|"$/, '')
-            }
-        }
-    }
-    return env
-}
 
-def envVars = loadEnv()
